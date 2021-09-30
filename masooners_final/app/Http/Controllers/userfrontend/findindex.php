@@ -55,7 +55,7 @@ class findindex extends Controller
 
     public function professionals($id)
     {
-        // dd($id);
+        dd($id);
 
         $professionalProfiles = ProfessionalProfile::with(['user', 'media'])->get();
         $professionalDetails = ProfessionalDetail::with(['category', 'user'])->where('subcategory_id',$id)->get();
