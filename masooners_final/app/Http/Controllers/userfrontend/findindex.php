@@ -55,7 +55,7 @@ class findindex extends Controller
 
     public function professionals($id)
     {
-        dd($id);
+        // dd($id);
 
         $professionalProfiles = ProfessionalProfile::with(['user', 'media'])->get();
         $professionalDetails = ProfessionalDetail::with(['category', 'user'])->where('subcategory_id',$id)->get();
@@ -106,13 +106,19 @@ class findindex extends Controller
      */
     public function shopping()
     {
-        //
+        
         $productSubCategories = ProductSubCategory::with(['category'])->get();
         $productCategories = ProductCategory::with(['media'])->get();
-        // dd($productSubCategories);
         $products = Product::with(['category', 'sub_category', 'media'])->get();
         // dd($products);
-        return view('manso.shoping',compact('products','productSubCategories','productCategories'));
+        $data_cat = DB::select('SELECT GROUP_CONCAT(DISTINCT(product_categories.id)) AS cat_id,
+        GROUP_CONCAT(product_sub_categories.id) AS sub_cat_id,
+        GROUP_CONCAT(product_sub_categories.name) AS sub_cat_name,
+        GROUP_CONCAT(DISTINCT(product_categories.name)) AS cat_name
+        FROM product_categories
+        INNER JOIN product_sub_categories ON product_categories.id=product_sub_categories.category_id
+        GROUP BY product_categories.id');
+        return view('manso.shoping',compact('products','productSubCategories','productCategories','data_cat'));
     }
 
     /**
