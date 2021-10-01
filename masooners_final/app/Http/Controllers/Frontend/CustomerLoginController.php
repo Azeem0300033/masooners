@@ -31,6 +31,7 @@ class CustomerLoginController extends Controller
 
     public function store(StoreCustomerLoginRequest $request)
     {
+        dd("ldasf");
         $customerLogin = CustomerLogin::create($request->all());
 
         return redirect()->route('frontend.customer-logins.index');

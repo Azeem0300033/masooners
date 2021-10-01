@@ -16,6 +16,10 @@ Route::get('/shopping', 'userfrontend\findindex@shopping')->name('shopping.open'
 
 Route::post('stepform', 'userfrontend\findindex@inquiry')->name('inquiry.open');
 
+// Customer Login
+// Route::delete('customer-logins/destroy', 'userfrontend\CustomerLoginController@massDestroy')->name('customer-logins.massDestroy');
+// Route::resource('customer-logins', 'userfrontend\CustomerLoginController');
+Route::post('customer-logins-store', 'userfrontend\CustomerLogIn@store')->name('store.customer');
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
